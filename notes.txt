@@ -1,0 +1,64 @@
+
+    - Nhandumirim waldsangae - 2012
+    - estauricossauro
+    - https://oglobo.globo.com/brasil/noticia/2024/07/17/com-preservacao-quase-completa-fossil-de-dinossauro-achado-no-rs-apos-aguas-baixarem-e-um-dos-mais-antigos-do-mundo.ghtml
+- Unaysaurus tolentinoi
+-  Gnathovorax cabreirai
+- Saturnalião
+
+
+matriz 9x9
+
+1)  0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0
+    0 0 0 1 1 1 0 0 0
+    0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0
+
+2)  0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0
+    1 1 1 1 1 1 1 1 1
+    0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0
+
+3)  0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0
+    0 0 0 2 1 2 0 0 0
+    0 0 0 1 1 1 0 0 0
+    0 0 0 2 1 2 0 0 0
+    0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0
+
+4)  0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0
+    0 0 0 0 1 0 0 0 0
+    0 0 0 2 2 2 0 0 0
+    0 0 1 2 1 2 1 0 0
+    0 0 0 2 2 2 0 0 0
+    0 0 0 0 1 0 0 0 0
+    0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0
+
+5) 1 2 2 2 0 2 2 2 1
+   2 0 0 0 0 0 0 0 2
+   2 0 0 0 0 0 0 0 2
+   2 0 0 0 0 0 0 0 2
+   0 0 0 0 3 0 0 0 0
+   2 0 0 0 0 0 0 0 2
+   2 0 0 0 0 0 0 0 2
+   2 0 0 0 0 0 0 0 2
+   1 2 2 2 0 2 2 2 1
+
+
+<a href="https://www.vecteezy.com/free-photos/jurassic-park-background">Jurassic Park Background Stock photos by Vecteezy</a>
+https://coolors.co/ebbab9-a72608-ffd151-5ca4a9-054a29
