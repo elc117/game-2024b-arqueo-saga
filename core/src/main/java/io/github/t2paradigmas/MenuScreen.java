@@ -22,15 +22,13 @@ public class MenuScreen implements Screen {
         float worldWidth = game.viewport.getWorldWidth();
         float worldHeight = game.viewport.getWorldHeight();
 
-        background = new Texture("img/mainmenu.png");
+        background = new Texture("img/bg/mainmenu.png");
 
-        playButton = new Sprite(new Texture("img/jogar3.png"));
-        playButton.setSize(2.825f, 1);
-        playButton.setCenter(worldWidth / 2f, worldHeight /2.5f);
+        playButton = new Sprite(new Texture("img/botoes/jogar3.png"));
 
-        instructionsButton = new Sprite (new Texture("img/instrucoes.png"));
-        instructionsButton.setSize(2.825f, 1);
-        instructionsButton.setCenter(worldWidth / 2f, worldHeight /3.5f);
+
+        instructionsButton = new Sprite (new Texture("img/botoes/instrucoes.png"));
+
 
         clickPos = new Vector2();
     }
@@ -54,17 +52,19 @@ public class MenuScreen implements Screen {
         //se o botão esquerdo do mouse é pressionado
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
             Rectangle rectPlay = playButton.getBoundingRectangle(); //área do botão de jogar
+            Rectangle rectInstructions = instructionsButton.getBoundingRectangle(); //área do botão de instruções
 
             //se o botão de jogar foi clicado
             if(clickPos.x > rectPlay.x && clickPos.x < rectPlay.x + rectPlay.width &&
                     clickPos.y > rectPlay.y && clickPos.y < rectPlay.y + rectPlay.height) {
-                System.out.println(rectPlay.x + " " + rectPlay.y);
+                game.setScreen(new SelectLevelScreen(game));
+
+            }
+            else if(clickPos.x > rectInstructions.x && clickPos.x < rectInstructions.x + rectInstructions.width &&
+                        clickPos.y > rectInstructions.y && clickPos.y < rectInstructions.y + rectInstructions.height) {
+                game.setScreen(new InstructionsScreen(game));
             }
         }
-    }
-
-    private void logic(){
-
     }
 
     private void draw(){
@@ -77,12 +77,16 @@ public class MenuScreen implements Screen {
 
         float worldWidth = game.viewport.getWorldWidth();
         float worldHeight = game.viewport.getWorldHeight();
+
+        playButton.setSize(2.825f, 1);
+        playButton.setCenter(worldWidth / 2f, worldHeight /2.5f);
+
+        instructionsButton.setSize(2.825f, 1);
+        instructionsButton.setCenter(worldWidth / 2f, worldHeight /3.5f);
+
         game.batch.draw(background, 0, 0, worldWidth, worldHeight);
-//        game.batch.draw(playButton, 3.7F, 3.3F, 2.81F, 1);
         playButton.draw(game.batch);
-//        game.batch.draw(instructionsButton, 3.7F, 1.8F, 2.81F, 1);
         instructionsButton.draw(game.batch);
-        //draw text. Remember that x and y are in meters
 
         game.batch.end();
     }
@@ -108,6 +112,7 @@ public class MenuScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        background.dispose();
+        instructionsButton.getTexture().dispose();
     }
 }
