@@ -62,3 +62,8 @@ matriz 9x9
 
 <a href="https://www.vecteezy.com/free-photos/jurassic-park-background">Jurassic Park Background Stock photos by Vecteezy</a>
 https://coolors.co/ebbab9-a72608-ffd151-5ca4a9-054a29
+https://libgdx.com/wiki/start/a-simple-game#input-controls
+https://libgdx.com/wiki/start/simple-game-extended
+https://libgdx.com/wiki/input/event-handling
+https://github.com/TobseF/Candy-Crush-Clone
+https://github.com/elc117/game-2023b-jogoenzo/tree/main

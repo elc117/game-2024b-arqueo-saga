@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class GameScreen implements Screen {
     final Main game;
+    Texture background;
 
     public GameScreen(Main game) {
         this.game = game;
@@ -22,7 +23,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        game.viewport.update(width, height, true);
     }
 
     @Override
