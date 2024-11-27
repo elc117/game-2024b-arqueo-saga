@@ -17,13 +17,18 @@ public class Main extends Game {
     public BitmapFont font;
     public FitViewport viewport;
     public ArrayList<Level> levels;
+    private  Integer totalScore = 0;
+
+    public Integer getTotalScore(){
+        return totalScore;
+    }
 
     @Override
     public void create() {
         batch = new SpriteBatch(); //grupo de sprites
         levels = new ArrayList<>(); // lista de níveis
 
-        for(int numLevel = 1; numLevel <= 3; numLevel++) {
+        for(int numLevel = 1; numLevel <= 5; numLevel++) {
             levels.add(LevelConstructor.createLevel(numLevel)); //utiliza o construtor de niveis para criar a lista de niveis
         }
 
@@ -33,7 +38,7 @@ public class Main extends Game {
 
         //font has 15pt, but we need to scale it to our viewport by ratio of viewport height to screen height
         font.setUseIntegerPositions(false);
-        font.getData().setScale(viewport.getWorldHeight() / Gdx.graphics.getHeight());
+        font.getData().setScale(3* viewport.getWorldHeight() / Gdx.graphics.getHeight());
 
         this.setScreen(new MenuScreen(this));
     }
