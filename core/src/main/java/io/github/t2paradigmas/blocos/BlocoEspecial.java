@@ -13,7 +13,7 @@ public class BlocoEspecial extends Bloco{
         return hits;
     }
     public void setHits(Integer hits) {
-        this.hits = hits;
+        this.hits -= hits;
     }
     public String getTipo() {
         return tipo;

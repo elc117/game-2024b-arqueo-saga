@@ -7,13 +7,13 @@ public class Bloco {
     private Integer linha;
     private Integer coluna;
     private Integer cor;
-    private final Sprite bloco;
+    private Sprite bloco;
 
     public Bloco(Integer linha, Integer coluna, Integer cor) {
         this.linha = linha;
         this.coluna = coluna;
         this.cor = cor;
-        this.bloco = new Sprite(new Texture("img/blocos/bloco" + cor + ".png"));
+        this.bloco = new Sprite(new Texture("img/blocos/bloco" + (cor + 1) + ".png"));
     }
 
     public Bloco(Integer linha, Integer coluna, String type ){
@@ -35,12 +35,24 @@ public class Bloco {
         return cor;
     }
 
+    public Sprite getBloco() {
+        return bloco;
+    }
+
     public void setLinha(Integer linha) {
         this.linha = linha;
     }
 
     public void setColuna(Integer coluna) {
         this.coluna = coluna;
+    }
+
+    public void setCor(Integer cor) {
+        this.cor = cor;
+    }
+
+    public void setBloco(Sprite bloco) {
+        this.bloco = bloco;
     }
 
 }

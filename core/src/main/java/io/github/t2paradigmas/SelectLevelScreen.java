@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -31,7 +30,6 @@ public class SelectLevelScreen implements Screen {
         lockButtons = new ArrayList<>();
         clickPos = new Vector2();
 
-        Sprite btn;
         boolean previous = false;
 
         for(Level l : game.levels) {
@@ -180,8 +178,10 @@ public class SelectLevelScreen implements Screen {
                 //se o botão de jogar foi clicado
                 if(clickPos.x > rectPlay.x && clickPos.x < rectPlay.x + rectPlay.width &&
                     clickPos.y > rectPlay.y && clickPos.y < rectPlay.y + rectPlay.height) {
-//                    game.setScreen(new SelectLevelScreen(game));
-                    System.out.println(playButtons.indexOf(b, true));
+                    Level current = game.levels.get(playButtons.indexOf(b, true));
+                    current.getTabuleiro().generateBlocos(current.getMatriz());
+                    game.setScreen(new GameScreen(game, current));
+//                    System.out.println(playButtons.indexOf(b, true));
                 }
             }
 

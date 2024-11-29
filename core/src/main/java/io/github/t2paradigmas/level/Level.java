@@ -24,6 +24,13 @@ public class Level {
         this.isPlayed = false;
         this.tabuleiro = new Tabuleiro(matriz);
     }
+    public int[][] getMatriz() {
+        return matriz;
+    }
+
+    public Tabuleiro getTabuleiro() {
+        return tabuleiro;
+    }
 
     public boolean isPlayed() {
         return isPlayed;
