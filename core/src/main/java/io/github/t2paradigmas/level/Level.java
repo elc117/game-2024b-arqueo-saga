@@ -39,4 +39,22 @@ public class Level {
     public Integer getLevelNumber() {
         return levelNumber;
     }
+
+    public Integer getNumSwap() {
+        return numSwap;
+    }
+
+    public void setnumSwap() {
+        this.numSwap -= 1;
+    }
+
+    public Integer getScore(){
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score += score;
+    }
+
+
 }
