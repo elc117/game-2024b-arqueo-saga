@@ -6,7 +6,6 @@ import io.github.t2paradigmas.utilitarios.Tuple;
 import io.github.t2paradigmas.utilitarios.tipoBloco;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Random;
 
 
@@ -95,6 +94,14 @@ public class Tabuleiro {
         int found = findMatches(true);
         while(found > 0)
             found = findMatches(true);
+
+        for(int linha = 0; linha < 9; linha++){
+            for(int coluna = 0; coluna < 9; coluna++){
+                inGameMatrix[linha][coluna].setPreviousPos(inGameMatrix[linha][coluna].getCurrentPos());
+            }
+        }
+
+
     }
 
     private boolean areNeighbours(Integer l1, Integer c1, Integer l2, Integer c2) {
@@ -248,9 +255,10 @@ public class Tabuleiro {
         return cont>=2;
     }
 
-
     public int swapTiles(Integer l1, Integer c1, Integer l2, Integer c2) {
         Bloco n = inGameMatrix[l1][c1];
+        n.setCurrentPos(new Tuple(l2, c2));
+        inGameMatrix[l2][c2].setCurrentPos((new Tuple(l1,c1)));
         inGameMatrix[l1][c1] = inGameMatrix[l2][c2];
         inGameMatrix[l2][c2] = n;
         return findMatches(false);
@@ -262,68 +270,28 @@ public class Tabuleiro {
 
         for(int linha = 0; linha < 9; linha++){
             for(int coluna = 0; coluna < 9; coluna++){
-                //encontrar matches pra esquerda
-//                if(inGameMatrix[linha][coluna].getCor() != null && coluna > 0){
-//                    int i = 1;
-//                    int cont = 0;
-//                    boolean addCurrent = true;
-//                    while((coluna-i)>=0
-//                            && inGameMatrix[linha][coluna-i].getCor() != null
-//                            && inGameMatrix[linha][coluna-i].getCor().equals(inGameMatrix[linha][coluna].getCor())){
-//                        cont++;
-//                        if(cont>=2){
-//                            Tuple nova = new Tuple(linha, coluna-i);
-//                            boolean add = true;
-//                            boolean addPrevious = true;
-//                            for(Tuple tuple : toBreak){
-//                                if (tuple.linha == nova.linha && tuple.coluna == nova.coluna) {
-//                                    add = false;
-//                                    break;
-//                                }
-//                                if (tuple.linha == nova.linha && tuple.coluna == nova.coluna - i + 1) {
-//                                    addPrevious = false;
-//                                }
-//                                if(tuple.linha == linha && tuple.coluna == coluna){
-//                                    addCurrent = false;
-//                                }
-//                            }
-//                            if(add){
-//                                toBreak.add(nova);
-//                            }
-//                            if(addPrevious){
-//                                toBreak.add(new Tuple(linha, coluna-i+1));
-//                            }
-//                            i++;
-//
-//                        }
-//                    }
-//                    if(cont>=2 && addCurrent){
-//                        Tuple nova = new Tuple(linha, coluna);
-//                        toBreak.add(nova);
-//                    }
-//                }
-
-                //encontrar matches pra direita
                 if(inGameMatrix[linha][coluna].getCor() != null && coluna < inGameMatrix[0].length-1){
                     int i = 1;
                     int cont = 0;
                     boolean addCurrent = true;
+                    Tuple current = new Tuple(linha, coluna);
                     while((coluna+i)<inGameMatrix[0].length
                         && inGameMatrix[linha][coluna+i].getCor() != null
                         && inGameMatrix[linha][coluna+i].getCor().equals(inGameMatrix[linha][coluna].getCor())){
                         cont++;
                         if(cont>=2){
                             Tuple nova = new Tuple(linha, coluna+i);
+                            Tuple previous = new Tuple(linha, coluna+i-1);
                             boolean add = true;
                             boolean addPrevious = true;
                             for(Tuple tuple : toBreak){
-                                if (tuple.linha == nova.linha && tuple.coluna == nova.coluna) {
+                                if (tuple.equals(nova)) {
                                     add = false;
                                 }
-                                if (tuple.linha == nova.linha && tuple.coluna == nova.coluna- 1) {
+                                if (tuple.equals(previous)) {
                                     addPrevious = false;
                                 }
-                                if((tuple.linha == linha && tuple.coluna == coluna)|| (nova.linha == linha && nova.coluna-1 == coluna)){
+                                if((tuple.equals(current)|| previous.equals(current))){
                                     addCurrent = false;
                                 }
                             }
@@ -331,7 +299,7 @@ public class Tabuleiro {
                                 toBreak.add(nova);
                             }
                             if(addPrevious){
-                                toBreak.add(new Tuple(linha, coluna+i-1));
+                                toBreak.add(previous);
                             }
 
                         }
@@ -339,8 +307,7 @@ public class Tabuleiro {
 
                     }
                     if(cont>=2 && addCurrent){
-                        Tuple nova = new Tuple(linha, coluna);
-                        toBreak.add(nova);
+                        toBreak.add(current);
                     }
                 }
 
@@ -349,23 +316,25 @@ public class Tabuleiro {
                     int i = 1;
                     int cont = 0;
                     boolean addCurrent = true;
+                    Tuple current = new Tuple(linha, coluna);
                     while((linha+i)< inGameMatrix.length
                         && inGameMatrix[linha+i][coluna].getCor() != null
                         && inGameMatrix[linha+i][coluna].getCor().equals(inGameMatrix[linha][coluna].getCor())){
                         cont++;
                         if(cont>=2){
                             Tuple nova = new Tuple(linha+i, coluna);
+                            Tuple previous = new Tuple(linha+i-1, coluna);
                             boolean add = true;
                             boolean addPrevious = true;
                             for(Tuple tuple : toBreak){
-                                if (tuple.linha == nova.linha && tuple.coluna == nova.coluna) {
+                                if (tuple.equals(nova)) {
                                     add = false;
 
                                 }
-                                if (tuple.linha == nova.linha-1 && tuple.coluna == nova.coluna ) {
+                                if (tuple.equals(previous)) {
                                     addPrevious = false;
                                 }
-                                if((tuple.linha == linha && tuple.coluna == coluna) || (nova.linha-1 == linha && nova.coluna == coluna)){
+                                if(tuple.equals(current) || previous.equals(current)){
                                     addCurrent = false;
                                 }
                             }
@@ -373,58 +342,16 @@ public class Tabuleiro {
                                 toBreak.add(nova);
                             }
                             if(addPrevious){
-                                toBreak.add(new Tuple(linha+i-1, coluna));
+                                toBreak.add(previous);
                             }
                         }
                         i++;
 
                     }
                     if(cont>=2 && addCurrent){
-                        Tuple nova = new Tuple(linha, coluna);
-                        toBreak.add(nova);
+                        toBreak.add(current);
                     }
                 }
-
-//                //encontrar matches pra cima
-//                if(inGameMatrix[linha][coluna].getCor() != null && linha > 0){
-//                    int i = 1;
-//                    int cont = 0;
-//                    boolean addCurrent = true;
-//                    while((linha-i)>=0
-//                        && inGameMatrix[linha-i][coluna].getCor() != null
-//                        && inGameMatrix[linha-i][coluna].getCor().equals(inGameMatrix[linha][coluna].getCor())){
-//                        cont++;
-//                        if(cont>=2){
-//                            Tuple nova = new Tuple(linha-i, coluna);
-//                            boolean add = true;
-//                            boolean addPrevious = true;
-//                            for(Tuple tuple : toBreak){
-//                                if (tuple.linha == nova.linha && tuple.coluna == nova.coluna) {
-//                                    add = false;
-//                                    break;
-//                                }
-//                                if (tuple.linha-i+1 == nova.linha && tuple.coluna == nova.coluna ) {
-//                                    addPrevious = false;
-//                                }
-//                                if(tuple.linha == linha && tuple.coluna == coluna){
-//                                    addCurrent = false;
-//                                }
-//                            }
-//                            if(add){
-//                                toBreak.add(nova);
-//                            }
-//                            if(addPrevious){
-//                                toBreak.add(new Tuple(linha-i+1, coluna));
-//                            }
-//                            i++;
-//
-//                        }
-//                    }
-//                    if(cont>=2 && addCurrent){
-//                        Tuple nova = new Tuple(linha, coluna);
-//                        toBreak.add(nova);
-//                    }
-//                }
 
             }
         }
@@ -510,12 +437,14 @@ public class Tabuleiro {
                         inGameMatrix[descendFrom.linha][descendFrom.coluna] = inGameMatrix[linha][coluna];
                         inGameMatrix[linha][coluna] = null;
                         inGameMatrix[linha][coluna] = onTop;
+                        onTop.setCurrentPos(new Tuple(linha, coluna));
                     }
                     else{ //cria um novo bloco se não tiver nenhum em cima
                         Random rand = new Random();
                         int n = rand.nextInt(5);
-                        Bloco novo = new Bloco(linha, coluna, n);
-                        this.inGameMatrix[linha][coluna] = novo;
+                        Bloco novo = new Bloco(0, coluna, n);
+                        this.inGameMatrix[0][coluna] = novo;
+                        refillTiles(generating);
                     }
                 }
             }

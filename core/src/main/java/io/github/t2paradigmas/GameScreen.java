@@ -18,9 +18,10 @@ public class GameScreen implements Screen {
     final Main game;
     private final Texture background;
     private Level level;
-    Vector2 clickPos;
-    TabuleiroRenderer tabRender;
-    Tuple selectedBloco;
+    private Vector2 clickPos;
+    private TabuleiroRenderer tabRender;
+    private Tuple selectedBloco;
+
 
 
     public GameScreen(Main game, Level level) {
@@ -31,6 +32,7 @@ public class GameScreen implements Screen {
         tabRender = new TabuleiroRenderer(level.getTabuleiro());
         selectedBloco = null;
     }
+
 
 
     @Override
