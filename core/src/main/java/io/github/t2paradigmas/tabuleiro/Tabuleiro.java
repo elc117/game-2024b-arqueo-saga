@@ -1,5 +1,6 @@
 package io.github.t2paradigmas.tabuleiro;
 
+import io.github.t2paradigmas.GameScreen;
 import io.github.t2paradigmas.blocos.Bloco;
 import io.github.t2paradigmas.blocos.BlocoEspecial;
 import io.github.t2paradigmas.utilitarios.Tuple;
@@ -16,12 +17,16 @@ public class Tabuleiro {
     private Integer brokenPedregulho;
     private Integer brokenRocha;
     private Bloco[][] inGameMatrix;
+    private ArrayList<Tuple> toBreak;
+    private Integer availableSwaps;
 
-    public Tabuleiro(int[][] matriz) {
+    public Tabuleiro(int[][] matriz, Integer numSwap) {
         this.brokenTerra = 0;
         this.brokenPedregulho = 0;
         this.brokenRocha = 0;
         this.inGameMatrix = new Bloco[matriz.length][matriz[0].length];
+        this.toBreak = new ArrayList<>();
+        this.availableSwaps = numSwap;
     }
 
     public Integer getBrokenTerra() {
@@ -49,19 +54,36 @@ public class Tabuleiro {
     }
 
     public void setBrokenBlocoEspecial(String tipo){
-        if(tipo.equals("terra")){
-            setBrokenTerra(1);
+        switch (tipo) {
+            case "terra":
+                setBrokenTerra(1);
+                break;
+            case "pedregulho":
+                setBrokenPedregulho(1);
+                break;
+            case "rocha":
+                setBrokenRocha(1);
+                break;
         }
-        else if(tipo.equals("pedregulho")){
-            setBrokenPedregulho(1);
-        }
-        else if(tipo.equals("rocha")){
-            setBrokenRocha(1);
-        }
+    }
+
+    public Integer getAvailableSwaps() {
+        return availableSwaps;
+    }
+
+    public void setAvailableSwaps() {
+        this.availableSwaps -=1;
     }
 
     public Bloco[][] getInGameMatrix() {
         return inGameMatrix;
+    }
+
+    public void resetTabuleiro(Integer numSwap){
+        availableSwaps = numSwap;
+        this.brokenPedregulho = 0;
+        this.brokenTerra = 0;
+        this.brokenRocha = 0;
     }
 
     public void generateBlocos(int[][] matriz) {
@@ -75,26 +97,28 @@ public class Tabuleiro {
                     this.inGameMatrix[linha][coluna] = novo;
                 }
                 else if(matriz[linha][coluna] == tipoBloco.TERRA.tipo){
-                    Bloco novo = new BlocoEspecial(linha, coluna, "terra");
+                    Bloco novo = new BlocoEspecial(linha, coluna, "terra", 1);
 //                    this.blocos.add(novo);
                     this.inGameMatrix[linha][coluna] = novo;
                 }
                 else if(matriz[linha][coluna] == tipoBloco.PEDREGULHO.tipo){
-                    Bloco novo = new BlocoEspecial(linha, coluna, "pedregulho");
+                    Bloco novo = new BlocoEspecial(linha, coluna, "pedregulho", 2);
 //                    this.blocos.add(novo);
                     this.inGameMatrix[linha][coluna] = novo;
                 }
                 else if(matriz[linha][coluna] == tipoBloco.ROCHA.tipo){
-                    Bloco novo = new BlocoEspecial(linha, coluna, "rocha");
+                    Bloco novo = new BlocoEspecial(linha, coluna, "rocha", 3);
 //                    this.blocos.add(novo);
                     this.inGameMatrix[linha][coluna] = novo;
                 }
             }
         }
-        int found = findMatches(true);
-        while(found > 0)
-            found = findMatches(true);
-
+        findMatches(true);
+        int found = breakMatches(toBreak, true);
+        while(found > 0) {
+            findMatches(true);
+            found = breakMatches(toBreak, true);
+        }
         for(int linha = 0; linha < 9; linha++){
             for(int coluna = 0; coluna < 9; coluna++){
                 inGameMatrix[linha][coluna].setPreviousPos(inGameMatrix[linha][coluna].getCurrentPos());
@@ -255,19 +279,20 @@ public class Tabuleiro {
         return cont>=2;
     }
 
-    public int swapTiles(Integer l1, Integer c1, Integer l2, Integer c2) {
+    public void swapTiles(Integer l1, Integer c1, Integer l2, Integer c2) {
         Bloco n = inGameMatrix[l1][c1];
         n.setCurrentPos(new Tuple(l2, c2));
         inGameMatrix[l2][c2].setCurrentPos((new Tuple(l1,c1)));
         inGameMatrix[l1][c1] = inGameMatrix[l2][c2];
         inGameMatrix[l2][c2] = n;
-        return findMatches(false);
+        setAvailableSwaps();
+//        return findMatches(false);
     }
 
-    public int findMatches(boolean generating){
+    public ArrayList<Tuple> findMatches(boolean generating){
 
-        ArrayList<Tuple> toBreak = new ArrayList<>();
-
+//        ArrayList<Tuple> toBreak = new ArrayList<>();
+        toBreak.clear();
         for(int linha = 0; linha < 9; linha++){
             for(int coluna = 0; coluna < 9; coluna++){
                 if(inGameMatrix[linha][coluna].getCor() != null && coluna < inGameMatrix[0].length-1){
@@ -356,10 +381,11 @@ public class Tabuleiro {
             }
         }
 
-        return breakMatches(toBreak, generating);
+//        return breakMatches(toBreak, generating);
+        return toBreak;
     }
 
-    private int breakMatches(ArrayList<Tuple> toBreak, boolean generating){
+    public int breakMatches(ArrayList<Tuple> toBreak, boolean generating){
         ArrayList<Tuple> novos = new ArrayList<>();
         for(Tuple tuple : toBreak){
             if(!generating) {

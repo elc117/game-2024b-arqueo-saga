@@ -9,12 +9,12 @@ public class LevelConstructor  {
                 matriz[4][3] = 5;
                 matriz[4][4] = 5;
                 matriz[4][5] = 5;
-                level = new Level(1, 20, 3, 0, 0, matriz);
+                level = new Level(1, 2, 3, 0, 0, matriz);
 
                 break;
             case 2:
                 for(int coluna = 0; coluna < 9; coluna++){
-                    matriz[4][coluna] = 1;
+                    matriz[4][coluna] = 5;
                 }
                 level = new Level(2, 20, 9, 0, 0, matriz);
                 break;

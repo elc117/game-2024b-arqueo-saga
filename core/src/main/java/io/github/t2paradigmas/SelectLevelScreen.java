@@ -160,7 +160,7 @@ public class SelectLevelScreen implements Screen {
         for(Sprite b : lockButtons) {
             b.draw(game.batch);
         }
-        game.font.draw(game.batch, String.format("%05d", game.getTotalScore()), 5, 0.8f);
+//        game.font.draw(game.batch, String.format("%05d", game.getTotalScore()), 5, 0.8f);
 
         game.batch.end();
 
@@ -180,8 +180,9 @@ public class SelectLevelScreen implements Screen {
                     clickPos.y > rectPlay.y && clickPos.y < rectPlay.y + rectPlay.height) {
                     Level current = game.levels.get(playButtons.indexOf(b, true));
                     current.getTabuleiro().generateBlocos(current.getMatriz());
+                    System.out.println(current.getMatriz()[0][0]);
+                    current.resetScore();
                     game.setScreen(new GameScreen(game, current));
-//                    System.out.println(playButtons.indexOf(b, true));
                 }
             }
 

@@ -13,6 +13,7 @@ public class Level {
     private Tabuleiro tabuleiro;
     private int[][] matriz;
 
+
     public Level(Integer levelNumber, Integer numSwap, Integer numTerra, Integer numPedregulho, Integer numRocha, int[][] matriz) {
         this.matriz = matriz;
         this.levelNumber = levelNumber;
@@ -22,7 +23,8 @@ public class Level {
         this.numRocha = numRocha;
         this.score = 0;
         this.isPlayed = false;
-        this.tabuleiro = new Tabuleiro(matriz);
+        this.tabuleiro = new Tabuleiro(matriz, numSwap);
+
     }
     public int[][] getMatriz() {
         return matriz;
@@ -36,16 +38,12 @@ public class Level {
         return isPlayed;
     }
 
+    public void setPlayed(boolean played) {
+        isPlayed = played;
+    }
+
     public Integer getLevelNumber() {
         return levelNumber;
-    }
-
-    public Integer getNumSwap() {
-        return numSwap;
-    }
-
-    public void setnumSwap() {
-        this.numSwap -= 1;
     }
 
     public Integer getScore(){
@@ -56,5 +54,21 @@ public class Level {
         this.score += score;
     }
 
+    public Integer getNumterra() {
+        return numTerra;
+    }
+
+    public Integer getNumPedregulho() {
+        return numPedregulho;
+    }
+
+    public Integer getNumRocha() {
+        return numRocha;
+    }
+
+    public void resetScore(){
+        this.score = 0;
+        tabuleiro.resetTabuleiro(numSwap);
+    }
 
 }

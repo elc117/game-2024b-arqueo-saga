@@ -15,6 +15,7 @@ public class Tuple{
     public int getLinha(){
         return linha;
     }
+
     @Override
     public boolean equals(Object o) {
         if ( o == null)
@@ -24,4 +25,5 @@ public class Tuple{
         Tuple t = (Tuple) o;
         return this.coluna == t.coluna && this.linha == t.linha;
     }
+
 }

@@ -1,9 +1,11 @@
 package io.github.t2paradigmas;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -34,14 +36,17 @@ public class Main extends Game {
 
         // use libGDX's default font
         font = new BitmapFont();
+
         viewport = new FitViewport(10, 10);
 
         //font has 15pt, but we need to scale it to our viewport by ratio of viewport height to screen height
         font.setUseIntegerPositions(false);
-        font.getData().setScale(3* viewport.getWorldHeight() / Gdx.graphics.getHeight());
+        font.getData().setScale( 2.3f*viewport.getWorldHeight() / Gdx.graphics.getHeight());
 
         this.setScreen(new MenuScreen(this));
     }
+
+    private void createFonts(){}
 
     @Override
     public void resize(int width, int height) {
