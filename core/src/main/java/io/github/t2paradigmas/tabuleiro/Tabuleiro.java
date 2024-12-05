@@ -129,7 +129,24 @@ public class Tabuleiro {
     }
 
     private boolean areNeighbours(Integer l1, Integer c1, Integer l2, Integer c2) {
-        return( Math.abs(l1 - l2) <= 1 && Math.abs(c1 - c2) <= 1 );
+        if(l1 > l2){
+            if(l1-l2>1){
+                return false;
+            }
+        }
+        else if(l2-l1>1)
+            return false;
+        if(c1>c2){
+            if(c1-c2>1){
+                return false;
+            }
+        }
+        else if(c2-c1>1)
+            return false;
+
+        return (l1.equals(l2) || c1.equals(c2));
+//        return true;
+//        return( Math.abs(l1 - l2) <= 1 && Math.abs(c1 - c2) <= 1 );
     }
 
     public boolean isSwapPossible(Integer l1, Integer c1, Integer l2, Integer c2) {
@@ -468,8 +485,22 @@ public class Tabuleiro {
                     else{ //cria um novo bloco se não tiver nenhum em cima
                         Random rand = new Random();
                         int n = rand.nextInt(5);
-                        Bloco novo = new Bloco(0, coluna, n);
-                        this.inGameMatrix[0][coluna] = novo;
+                        if(this.inGameMatrix[0][coluna].getCor() !=null) {
+                            Bloco novo = new Bloco(0, coluna, n);
+
+                            this.inGameMatrix[0][coluna] = novo;
+                        }
+                        else{
+                            Bloco novo = new Bloco(linha, coluna, n);
+
+                            this.inGameMatrix[linha][coluna] = novo;
+//                            for(int l = 1; l <= linha; l++){
+//                                if(this.inGameMatrix[l][coluna] != null) {
+//                                    this.inGameMatrix[l][coluna] = novo;
+//                                    break;
+//                                }
+//                            }
+                        }
                         refillTiles(generating);
                     }
                 }

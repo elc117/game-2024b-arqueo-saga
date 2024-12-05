@@ -1,0 +1,39 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "level": 1,
+      "text": "Assinale a opção correta sobre os hábitos alimentares e linhagem do Nhandumirim waldsangae:",
+      "options": ["Herbívoro e terópode", "Carnívoro e terópode", "Herbívoro e fitossauro", "Carnívoro e fitossauro"],
+      "answer": 1
+    },
+    {
+      "id": 2,
+      "level": 2,
+      "text": "Assinale a afirmação correta sobre o Staurikosaurus pricei:",
+      "options": ["Foi descoberto em 1970", "É o dinossauro mais antigo do mundo", "Foi o primeiro dinossauro descoberto no Brasil", "Era quadrúpede"],
+      "answer": 2
+    },
+    {
+      "id": 3,
+      "level": 3,
+      "text": "Qual a característica que diferencia o Unaysaurus tolentinoi das outras espécies que viveram no mesmo período?",
+      "options": ["Era herbívoro e bípede", "Foi o único fóssil desse período já encontrado no Brasil", "Tinha ossos muito pequenos", "Vivia em grupos com indivíduos em diferentes estágios de desenvolvimento"],
+      "answer": 3
+    },
+    {
+      "id": 4,
+      "level": 4,
+      "text": "Qual característica do Gnathovorax cabrerai pode ser revelada graças às boas condições de seu fóssil?",
+      "options": ["Vivia em grupos com indíviduos da mesma espécie", "Era herbívoro", "É o maior dinossauro do mundo", "Tinha visão e equilíbrio bem desenvolvidos"],
+      "answer": 3
+    },
+    {
+      "id": 5,
+      "level": 5,
+      "text": "Qual o motivo do nome 'Saturnalia' do Saturnalia tupiniquim?",
+      "options": ["Foi encontrado no carnaval","Se refere a comunidade indígena que vivia na área onde foi encontrado", "Faz referência aos seus parentes saurópodos", "Eram muito pequenos"],
+      "answer": 0
+    }
+  ]
+}

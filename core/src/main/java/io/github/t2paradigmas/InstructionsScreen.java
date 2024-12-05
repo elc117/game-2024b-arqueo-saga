@@ -14,6 +14,7 @@ public class InstructionsScreen implements Screen {
     private final Main game;
     private final Texture background;
     private final Sprite playButton;
+    private final Sprite menuButton;
     Vector2 clickPos;
     public InstructionsScreen(final Main game) {
         this.game = game;
@@ -26,6 +27,11 @@ public class InstructionsScreen implements Screen {
         playButton = new Sprite(new Texture("img/botoes/jogar3.png"));
         playButton.setSize(2.825f, 1);
         playButton.setCenter(worldWidth / 2f, worldHeight /14f);
+
+        menuButton = new Sprite(new Texture("img/botoes/menu.png"));
+        menuButton.setSize(0.912f, 0.631f);
+        menuButton.setCenter(8.960f + menuButton.getWidth()/2, 9.869f - menuButton.getHeight()/2);
+
 
     }
 
@@ -49,6 +55,7 @@ public class InstructionsScreen implements Screen {
         float worldHeight = game.viewport.getWorldHeight();
         game.batch.draw(background, 0, 0, worldWidth, worldHeight);
         playButton.draw(game.batch);
+        menuButton.draw(game.batch);
 
 
         game.batch.end();
@@ -60,11 +67,13 @@ public class InstructionsScreen implements Screen {
 
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
             Rectangle rectPlay = playButton.getBoundingRectangle(); //área do botão de jogar
-
+            Rectangle rectMenu = menuButton.getBoundingRectangle();
             //se o botão de jogar foi clicado
-            if(clickPos.x > rectPlay.x && clickPos.x < rectPlay.x + rectPlay.width &&
-                    clickPos.y > rectPlay.y && clickPos.y < rectPlay.y + rectPlay.height) {
+            if(rectPlay.contains(clickPos)) {
                 game.setScreen(new SelectLevelScreen(game));
+            }
+            else if(rectMenu.contains(clickPos)) {
+                game.setScreen(new MenuScreen(game));
             }
         }
     }

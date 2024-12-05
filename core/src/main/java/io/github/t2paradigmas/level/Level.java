@@ -1,5 +1,6 @@
 package io.github.t2paradigmas.level;
 
+import io.github.t2paradigmas.Main;
 import io.github.t2paradigmas.tabuleiro.Tabuleiro;
 
 public class Level {
@@ -12,7 +13,7 @@ public class Level {
     private Integer score;
     private Tabuleiro tabuleiro;
     private int[][] matriz;
-
+    private Integer record;
 
     public Level(Integer levelNumber, Integer numSwap, Integer numTerra, Integer numPedregulho, Integer numRocha, int[][] matriz) {
         this.matriz = matriz;
@@ -24,6 +25,7 @@ public class Level {
         this.score = 0;
         this.isPlayed = false;
         this.tabuleiro = new Tabuleiro(matriz, numSwap);
+        this.record = 0;
 
     }
     public int[][] getMatriz() {
@@ -64,6 +66,21 @@ public class Level {
 
     public Integer getNumRocha() {
         return numRocha;
+    }
+
+    public Integer getNumSwap() {
+        return numSwap;
+    }
+
+    public Integer getRecord(){
+        return record;
+    }
+
+    public void setRecord(Main game) {
+        if(score>record) {
+            this.record = score;
+            game.addScore(score);
+        }
     }
 
     public void resetScore(){

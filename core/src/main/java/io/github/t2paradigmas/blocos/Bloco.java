@@ -8,7 +8,7 @@ public class Bloco {
     private Tuple previousPos;
     private Tuple currentPos;
     private Integer cor;
-    private Sprite bloco;
+    protected Sprite bloco;
     private boolean initialized;
 
     public Bloco(Integer linha, Integer coluna, Integer cor) {
@@ -56,6 +56,7 @@ public class Bloco {
     public Sprite getBloco() {
         return bloco;
     }
+
 
     public void setCor(Integer cor) {
         this.cor = cor;

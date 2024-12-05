@@ -55,13 +55,11 @@ public class MenuScreen implements Screen {
             Rectangle rectInstructions = instructionsButton.getBoundingRectangle(); //área do botão de instruções
 
             //se o botão de jogar foi clicado
-            if(clickPos.x > rectPlay.x && clickPos.x < rectPlay.x + rectPlay.width &&
-                    clickPos.y > rectPlay.y && clickPos.y < rectPlay.y + rectPlay.height) {
+            if(rectPlay.contains(clickPos)) {
                 game.setScreen(new SelectLevelScreen(game));
 
             }
-            else if(clickPos.x > rectInstructions.x && clickPos.x < rectInstructions.x + rectInstructions.width &&
-                        clickPos.y > rectInstructions.y && clickPos.y < rectInstructions.y + rectInstructions.height) {
+            else if(rectInstructions.contains(clickPos)) {
                 game.setScreen(new InstructionsScreen(game));
             }
         }

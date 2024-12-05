@@ -1,14 +1,18 @@
 package io.github.t2paradigmas;
 
-import java.awt.*;
+//import java.awt.*;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
+
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import io.github.t2paradigmas.level.Level;
 import io.github.t2paradigmas.level.LevelConstructor;
@@ -20,15 +24,30 @@ public class Main extends Game {
     public FitViewport viewport;
     public ArrayList<Level> levels;
     private  Integer totalScore = 0;
+    public ArrayList<Question> questions;
 
     public Integer getTotalScore(){
         return totalScore;
+    }
+    public void addScore(Integer score){
+        totalScore += score;
     }
 
     @Override
     public void create() {
         batch = new SpriteBatch(); //grupo de sprites
         levels = new ArrayList<>(); // lista de níveis
+        questions = new ArrayList<>();
+
+        Json json = new Json();
+        FileHandle questionsFileHandle = Gdx.files.internal("questions.json");
+        String jsonString = questionsFileHandle.readString();
+        JsonValue root = new JsonReader().parse(jsonString);
+
+        for(JsonValue questionValue: root.get("questions")){
+            Question question = json.fromJson(Question.class, questionValue.toString());
+            questions.add(question);
+        }
 
         for(int numLevel = 1; numLevel <= 5; numLevel++) {
             levels.add(LevelConstructor.createLevel(numLevel)); //utiliza o construtor de niveis para criar a lista de niveis
@@ -46,7 +65,9 @@ public class Main extends Game {
         this.setScreen(new MenuScreen(this));
     }
 
-    private void createFonts(){}
+    public static boolean isClicked(float clickX, float clickY, float x1, float y1, float x2, float y2) {
+        return clickX > x1 && clickX < x2 && clickY > y1 && clickY < y2;
+    }
 
     @Override
     public void resize(int width, int height) {

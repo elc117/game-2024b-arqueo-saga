@@ -5,9 +5,12 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.t2paradigmas.level.Level;
@@ -21,6 +24,8 @@ public class SelectLevelScreen implements Screen {
     private ArrayList<Sprite> fossilButtons;
     private ArrayList<Sprite> lockButtons;
     Vector2 clickPos;
+    private GlyphLayout layout;
+    private Sprite btnMenu;
 
     public SelectLevelScreen(Main game) {
         this.game = game;
@@ -29,7 +34,9 @@ public class SelectLevelScreen implements Screen {
         fossilButtons = new ArrayList<>();
         lockButtons = new ArrayList<>();
         clickPos = new Vector2();
-
+        layout = new GlyphLayout();
+        layout.setText(game.font,String.format("%05d", game.getTotalScore()), Color.BLACK, 0, Align.left, false);
+        btnMenu = createButton("menu", 9.23f + 0.682f/2, 9.888f-0.472f/2, 0.682f, 0.472f);
         boolean previous = false;
 
         for(Level l : game.levels) {
@@ -148,7 +155,7 @@ public class SelectLevelScreen implements Screen {
 
         game.batch.draw(background, 0, 0, worldWidth, worldHeight);
 
-
+        btnMenu.draw(game.batch);
         for(Sprite b : playButtons) {
             b.draw(game.batch);
         }
@@ -161,7 +168,7 @@ public class SelectLevelScreen implements Screen {
             b.draw(game.batch);
         }
 //        game.font.draw(game.batch, String.format("%05d", game.getTotalScore()), 5, 0.8f);
-
+        game.font.draw(game.batch, layout, 5, 0.7f);
         game.batch.end();
 
     }
@@ -172,6 +179,11 @@ public class SelectLevelScreen implements Screen {
 
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
             Rectangle rectPlay;
+            Rectangle rectMenu = btnMenu.getBoundingRectangle();
+
+            if(rectMenu.contains(clickPos)) {
+                game.setScreen(new MenuScreen(game));
+            }
 
             for(Sprite b : playButtons) {
                 rectPlay = b.getBoundingRectangle();
@@ -190,8 +202,8 @@ public class SelectLevelScreen implements Screen {
                 rectPlay = b.getBoundingRectangle();
                 if(clickPos.x > rectPlay.x && clickPos.x < rectPlay.x + rectPlay.width &&
                     clickPos.y > rectPlay.y && clickPos.y < rectPlay.y + rectPlay.height) {
-//                    game.setScreen(new SelectLevelScreen(game));
-                    System.out.println(playButtons.indexOf(b, true));
+                    Level current = game.levels.get(fossilButtons.indexOf(b));
+                    game.setScreen(new FossilScreen(game, current, false));
                 }
             }
 

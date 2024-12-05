@@ -9,7 +9,7 @@ public class LevelConstructor  {
                 matriz[4][3] = 5;
                 matriz[4][4] = 5;
                 matriz[4][5] = 5;
-                level = new Level(1, 2, 3, 0, 0, matriz);
+                level = new Level(1, 10, 3, 0, 0, matriz);
 
                 break;
             case 2:
@@ -35,12 +35,12 @@ public class LevelConstructor  {
                     matriz[3][col] = 6;
                 }
                 matriz[2][4] = 5;
-                matriz[4][2] = 5;
-                for(int col = 3; col<7; col++){
+//                matriz[4][2] = 5;
+                for(int col = 2; col<7; col++){
                     if(col%2 == 0)
-                        matriz[4][col] = 6;
-                    else{
                         matriz[4][col] = 5;
+                    else{
+                        matriz[4][col] = 6;
                     }
                 }
                 for(int col = 3; col<6; col++){
