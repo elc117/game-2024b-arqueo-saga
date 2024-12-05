@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
@@ -18,7 +17,7 @@ import io.github.t2paradigmas.level.Level;
 import java.util.ArrayList;
 
 public class SelectLevelScreen implements Screen {
-    final Main game; //final = constante
+    final Main game;
     private final Texture background;
     private Array<Sprite> playButtons;
     private ArrayList<Sprite> fossilButtons;
@@ -35,7 +34,7 @@ public class SelectLevelScreen implements Screen {
         lockButtons = new ArrayList<>();
         clickPos = new Vector2();
         layout = new GlyphLayout();
-        layout.setText(game.font,String.format("%05d", game.getTotalScore()), Color.BLACK, 0, Align.left, false);
+        layout.setText(game.font,Main.formatPontos(game.getTotalScore()), Color.BLACK, 0, Align.left, false);
         btnMenu = createButton("menu", 9.23f + 0.682f/2, 9.888f-0.472f/2, 0.682f, 0.472f);
         boolean previous = false;
 
@@ -84,17 +83,14 @@ public class SelectLevelScreen implements Screen {
                     if (l.isPlayed()) {
                         playButtons.add(createButton("jogar4", 3.1925f, 3.251f, 1.939f, 0.7f));
                         fossilButtons.add(createButton("fossil4", 3.1925f, 2.471f, 1.939f, 0.7f));
-
                         previous = true;
                     }
                     else if(!previous){
                         lockButtons.add(createButton("lock4", 3.1925f, 3.041f, 1.939f, 0.973f));
-
                     }
                     else{
                         playButtons.add(createButton("jogar4", 3.1925f, 3.251f, 1.939f, 0.7f));
                         previous = false;
-
                     }
                     break;
                 case 5:
@@ -167,7 +163,7 @@ public class SelectLevelScreen implements Screen {
         for(Sprite b : lockButtons) {
             b.draw(game.batch);
         }
-//        game.font.draw(game.batch, String.format("%05d", game.getTotalScore()), 5, 0.8f);
+
         game.font.draw(game.batch, layout, 5, 0.7f);
         game.batch.end();
 
@@ -187,7 +183,6 @@ public class SelectLevelScreen implements Screen {
 
             for(Sprite b : playButtons) {
                 rectPlay = b.getBoundingRectangle();
-                //se o botão de jogar foi clicado
                 if(clickPos.x > rectPlay.x && clickPos.x < rectPlay.x + rectPlay.width &&
                     clickPos.y > rectPlay.y && clickPos.y < rectPlay.y + rectPlay.height) {
                     Level current = game.levels.get(playButtons.indexOf(b, true));
@@ -243,5 +238,6 @@ public class SelectLevelScreen implements Screen {
         for (Sprite b : lockButtons) {
             b.getTexture().dispose();
         }
+        btnMenu.getTexture().dispose();
     }
 }

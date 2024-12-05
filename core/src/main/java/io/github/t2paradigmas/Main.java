@@ -35,9 +35,11 @@ public class Main extends Game {
 
     @Override
     public void create() {
-        batch = new SpriteBatch(); //grupo de sprites
-        levels = new ArrayList<>(); // lista de níveis
+        batch = new SpriteBatch();
+        levels = new ArrayList<>();
         questions = new ArrayList<>();
+        viewport = new FitViewport(10, 10);
+
 
         Json json = new Json();
         FileHandle questionsFileHandle = Gdx.files.internal("questions.json");
@@ -50,14 +52,11 @@ public class Main extends Game {
         }
 
         for(int numLevel = 1; numLevel <= 5; numLevel++) {
-            levels.add(LevelConstructor.createLevel(numLevel)); //utiliza o construtor de niveis para criar a lista de niveis
+            levels.add(LevelConstructor.createLevel(numLevel));
         }
 
-        // use libGDX's default font
+
         font = new BitmapFont();
-
-        viewport = new FitViewport(10, 10);
-
         //font has 15pt, but we need to scale it to our viewport by ratio of viewport height to screen height
         font.setUseIntegerPositions(false);
         font.getData().setScale( 2.3f*viewport.getWorldHeight() / Gdx.graphics.getHeight());
@@ -69,6 +68,17 @@ public class Main extends Game {
         return clickX > x1 && clickX < x2 && clickY > y1 && clickY < y2;
     }
 
+    public static String formatPontos(Integer pontos){
+        if(pontos < 10)
+            return "0000" + pontos;
+        if(pontos < 100)
+            return "000" + pontos;
+        if(pontos < 1000)
+            return "00" + pontos;
+        if(pontos < 10000)
+            return "0" + pontos;
+        return "" + pontos;
+    }
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height, true); // true centers the camera

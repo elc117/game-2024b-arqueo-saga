@@ -68,14 +68,6 @@ public class Level {
         return numRocha;
     }
 
-    public Integer getNumSwap() {
-        return numSwap;
-    }
-
-    public Integer getRecord(){
-        return record;
-    }
-
     public void setRecord(Main game) {
         if(score>record) {
             this.record = score;

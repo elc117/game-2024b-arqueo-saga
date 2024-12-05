@@ -43,7 +43,7 @@ public class QuizScreen implements Screen {
             novo.setSize(0.949f, 0.676f);
             novo.setCenter(2.436f, 2.647f +(3-i)*1.025f-0.676f/2);
             optionCircle.add(novo);
-            rectOptions.add(optionCircle.getLast().getBoundingRectangle());
+            rectOptions.add(optionCircle.get(optionCircle.size()-1).getBoundingRectangle());
         }
         this.level = level;
         question = game.questions.get(level.getLevelNumber()-1);
@@ -55,7 +55,7 @@ public class QuizScreen implements Screen {
         for(int i = 0; i< question.getOptions().size(); i++){
             String nova =question.getOptions().get(i);
             options.add(new GlyphLayout());
-            options.getLast().setText(game.font,letras.get(i) + "          " + nova, Color.BLACK, 6.476f, Align.left, true);
+            options.get(options.size()-1).setText(game.font,letras.get(i) + "          " + nova, Color.BLACK, 6.476f, Align.left, true);
         }
 
         this.answered = false;
@@ -106,8 +106,8 @@ public class QuizScreen implements Screen {
     }
 
     private void input(){
-        clickPos.set(Gdx.input.getX(), Gdx.input.getY()); //pega as coordenadas do clique
-        game.viewport.unproject(clickPos); //converte para as unidades do viewport
+        clickPos.set(Gdx.input.getX(), Gdx.input.getY());
+        game.viewport.unproject(clickPos);
 
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
             if(!answered){

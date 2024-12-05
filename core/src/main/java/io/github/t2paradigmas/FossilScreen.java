@@ -55,12 +55,12 @@ public class FossilScreen implements Screen {
     }
 
     private void input() {
-        clickPos.set(Gdx.input.getX(), Gdx.input.getY()); //pega as coordenadas do clique
-        game.viewport.unproject(clickPos); //converte para as unidades do viewport
+        clickPos.set(Gdx.input.getX(), Gdx.input.getY());
+        game.viewport.unproject(clickPos);
 
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
             Rectangle rectContinuar = btnContinuar.getBoundingRectangle();
-            if(Main.isClicked(clickPos.x, clickPos.y, rectContinuar.x, rectContinuar.y, rectContinuar.x + rectContinuar.width, rectContinuar.y + rectContinuar.height)){
+            if(rectContinuar.contains(clickPos)){
                 if(quiz)
                     game.setScreen(new QuizScreen(game, level));
                 else

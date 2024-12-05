@@ -22,7 +22,6 @@ public class BlocoEspecial extends Bloco{
                     this.getBloco().setTexture(new Texture("img/blocos/pedregulho1.png"));
                     break;
                 case "rocha":
-//                    System.out.println(3-hits);
                     this.getBloco().setTexture(new Texture("img/blocos/rocha" + (3-this.hits) + ".png"));
                     break;
             }

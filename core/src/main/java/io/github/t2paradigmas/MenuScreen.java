@@ -23,12 +23,14 @@ public class MenuScreen implements Screen {
         float worldHeight = game.viewport.getWorldHeight();
 
         background = new Texture("img/bg/mainmenu.png");
-
         playButton = new Sprite(new Texture("img/botoes/jogar3.png"));
-
-
         instructionsButton = new Sprite (new Texture("img/botoes/instrucoes.png"));
 
+        playButton.setSize(2.825f, 1);
+        playButton.setCenter(worldWidth / 2f, worldHeight /2.5f);
+
+        instructionsButton.setSize(2.825f, 1);
+        instructionsButton.setCenter(worldWidth / 2f, worldHeight /3.5f);
 
         clickPos = new Vector2();
     }
@@ -46,15 +48,14 @@ public class MenuScreen implements Screen {
     }
 
     private void input() {
-        clickPos.set(Gdx.input.getX(), Gdx.input.getY()); //pega as coordenadas do clique
+        clickPos.set(Gdx.input.getX(), Gdx.input.getY());
         game.viewport.unproject(clickPos); //converte para as unidades do viewport
 
         //se o botão esquerdo do mouse é pressionado
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-            Rectangle rectPlay = playButton.getBoundingRectangle(); //área do botão de jogar
-            Rectangle rectInstructions = instructionsButton.getBoundingRectangle(); //área do botão de instruções
+            Rectangle rectPlay = playButton.getBoundingRectangle();
+            Rectangle rectInstructions = instructionsButton.getBoundingRectangle();
 
-            //se o botão de jogar foi clicado
             if(rectPlay.contains(clickPos)) {
                 game.setScreen(new SelectLevelScreen(game));
 
@@ -76,11 +77,6 @@ public class MenuScreen implements Screen {
         float worldWidth = game.viewport.getWorldWidth();
         float worldHeight = game.viewport.getWorldHeight();
 
-        playButton.setSize(2.825f, 1);
-        playButton.setCenter(worldWidth / 2f, worldHeight /2.5f);
-
-        instructionsButton.setSize(2.825f, 1);
-        instructionsButton.setCenter(worldWidth / 2f, worldHeight /3.5f);
 
         game.batch.draw(background, 0, 0, worldWidth, worldHeight);
         playButton.draw(game.batch);

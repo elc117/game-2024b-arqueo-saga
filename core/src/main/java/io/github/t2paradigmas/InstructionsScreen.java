@@ -62,13 +62,13 @@ public class InstructionsScreen implements Screen {
     }
 
     private void input(){
-        clickPos.set(Gdx.input.getX(), Gdx.input.getY()); //pega as coordenadas do clique
-        game.viewport.unproject(clickPos); //converte para as unidades do viewport
+        clickPos.set(Gdx.input.getX(), Gdx.input.getY());
+        game.viewport.unproject(clickPos);
 
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-            Rectangle rectPlay = playButton.getBoundingRectangle(); //área do botão de jogar
+            Rectangle rectPlay = playButton.getBoundingRectangle();
             Rectangle rectMenu = menuButton.getBoundingRectangle();
-            //se o botão de jogar foi clicado
+
             if(rectPlay.contains(clickPos)) {
                 game.setScreen(new SelectLevelScreen(game));
             }

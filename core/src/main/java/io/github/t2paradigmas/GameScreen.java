@@ -96,7 +96,8 @@ public class GameScreen implements Screen {
         game.batch.begin();
 
         game.batch.draw(background, 0, 0, worldWidth, worldHeight);
-        layout.setText(game.font, String.format("%d                                %05d\n\n%d", level.getLevelNumber(), level.getScore(), level.getTabuleiro().getAvailableSwaps()), Color.BLACK, 0, Align.left, false);
+        String info = level.getLevelNumber() + "                                " + Main.formatPontos(level.getScore()) + "\n\n" + level.getTabuleiro().getAvailableSwaps();
+        layout.setText(game.font, info, Color.BLACK, 0, Align.left, false);
         game.font.draw(game.batch, layout, 3.715f, 9.588f);
         sair.draw(game.batch);
 
@@ -133,13 +134,13 @@ public class GameScreen implements Screen {
             Rectangle rectLast = inGameMatrix[inGameMatrix.length - 1][inGameMatrix[0].length - 1].getBloco().getBoundingRectangle();
 
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-                if (Main.isClicked(clickPos.x, clickPos.y, rectSair.x, rectSair.y, rectSair.x + rectSair.width, rectSair.y + rectSair.height )) {
+                if (rectSair.contains(clickPos)) {
                     System.out.println(level.getScore());
                     level.resetScore();
 
                     game.setScreen(new SelectLevelScreen(game));
                 }
-                    if(Main.isClicked(clickPos.x, clickPos.y, rectFirst.x, rectLast.y,rectLast.x + rectLast.width, rectFirst.y + rectFirst.height))
+                if(Main.isClicked(clickPos.x, clickPos.y, rectFirst.x, rectLast.y,rectLast.x + rectLast.width, rectFirst.y + rectFirst.height))
                 {
                     Integer linha = (int) (-(clickPos.y - 8.315) / 0.9);
                     Integer coluna = (int) ((clickPos.x - 0.96) / 0.9);
@@ -149,7 +150,7 @@ public class GameScreen implements Screen {
                         } else {
                             if (level.getTabuleiro().isSwapPossible(selectedBloco.getLinha(), selectedBloco.getColuna(), linha, coluna)) {
                                 level.getTabuleiro().swapTiles(selectedBloco.getLinha(), selectedBloco.getColuna(), linha, coluna);
-                                toBreak = level.getTabuleiro().findMatches(false);
+                                toBreak = level.getTabuleiro().findMatches();
 
                             }
                             selectedBloco = null;
@@ -162,12 +163,12 @@ public class GameScreen implements Screen {
         else{
             Rectangle rectTentarNovamente = tentarNovamente.getBoundingRectangle();
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-                if (Main.isClicked(clickPos.x, clickPos.y, rectTentarNovamente.x, rectTentarNovamente.y, rectTentarNovamente.x + rectTentarNovamente.width, rectTentarNovamente.y + rectTentarNovamente.height)) {
+                if (rectTentarNovamente.contains(clickPos)) {
                     level.getTabuleiro().generateBlocos(level.getMatriz());
                     level.resetScore();
                     game.setScreen(new GameScreen(game, level));
                 }
-                if(Main.isClicked(clickPos.x, clickPos.y, rectSair.x, rectSair.y, rectSair.x + rectSair.width, rectSair.y + rectSair.height)){
+                if(rectSair.contains(clickPos)) {
                     level.resetScore();
                     game.setScreen(new SelectLevelScreen(game));
                 }
@@ -181,7 +182,7 @@ public class GameScreen implements Screen {
 
         int totalBroken = level.getTabuleiro().breakMatches(toBreak, false);
         level.setScore(calcularPontuacao(totalBroken));
-        toBreak = level.getTabuleiro().findMatches(false);
+        toBreak = level.getTabuleiro().findMatches();
     }
 
     private boolean isGameOver() throws InterruptedException {

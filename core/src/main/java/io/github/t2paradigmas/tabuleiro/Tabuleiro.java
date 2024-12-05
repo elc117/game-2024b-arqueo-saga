@@ -1,6 +1,5 @@
 package io.github.t2paradigmas.tabuleiro;
 
-import io.github.t2paradigmas.GameScreen;
 import io.github.t2paradigmas.blocos.Bloco;
 import io.github.t2paradigmas.blocos.BlocoEspecial;
 import io.github.t2paradigmas.utilitarios.Tuple;
@@ -93,30 +92,26 @@ public class Tabuleiro {
                     Random rand = new Random();
                     int n = rand.nextInt(5);
                     Bloco novo = new Bloco(linha, coluna, n);
-//                    this.blocos.add(novo);
                     this.inGameMatrix[linha][coluna] = novo;
                 }
                 else if(matriz[linha][coluna] == tipoBloco.TERRA.tipo){
                     Bloco novo = new BlocoEspecial(linha, coluna, "terra", 1);
-//                    this.blocos.add(novo);
                     this.inGameMatrix[linha][coluna] = novo;
                 }
                 else if(matriz[linha][coluna] == tipoBloco.PEDREGULHO.tipo){
                     Bloco novo = new BlocoEspecial(linha, coluna, "pedregulho", 2);
-//                    this.blocos.add(novo);
                     this.inGameMatrix[linha][coluna] = novo;
                 }
                 else if(matriz[linha][coluna] == tipoBloco.ROCHA.tipo){
                     Bloco novo = new BlocoEspecial(linha, coluna, "rocha", 3);
-//                    this.blocos.add(novo);
                     this.inGameMatrix[linha][coluna] = novo;
                 }
             }
         }
-        findMatches(true);
+        findMatches();
         int found = breakMatches(toBreak, true);
         while(found > 0) {
-            findMatches(true);
+            findMatches();
             found = breakMatches(toBreak, true);
         }
         for(int linha = 0; linha < 9; linha++){
@@ -145,15 +140,11 @@ public class Tabuleiro {
             return false;
 
         return (l1.equals(l2) || c1.equals(c2));
-//        return true;
-//        return( Math.abs(l1 - l2) <= 1 && Math.abs(c1 - c2) <= 1 );
     }
 
     public boolean isSwapPossible(Integer l1, Integer c1, Integer l2, Integer c2) {
-//        System.out.println("   " + l1 + ", " + c1 + ", linha2 " + l2 + ", " + c2);
         if(inGameMatrix[l1][c1].getCor() == null || inGameMatrix[l2][c2].getCor() == null || inGameMatrix[l1][c1].getCor().equals(inGameMatrix[l2][c2].getCor())
             || !areNeighbours(l1, c1, l2, c2)) {
-            System.out.println("primeiro if" + inGameMatrix[l1][c1].getCor() + inGameMatrix[l2][c2].getCor() );
             return false;
         }
 
@@ -163,7 +154,6 @@ public class Tabuleiro {
         while(coluna < inGameMatrix[0].length && inGameMatrix[l1][coluna].getCor() != null ){
             if((inGameMatrix[l1][coluna].getCor().equals(inGameMatrix[l2][c2].getCor()))){
                 if(!l1.equals(l2) || coluna != c2){
-                    System.out.println("while bloco 2 na linha do bloco 1 de c1 pra direita" + coluna);
                     cont++;
                 }
                 coluna++;
@@ -179,7 +169,6 @@ public class Tabuleiro {
         while(coluna >= 0 && inGameMatrix[l1][coluna].getCor() != null){
             if(inGameMatrix[l1][coluna].getCor().equals(inGameMatrix[l2][c2].getCor())){
                 if(!l1.equals(l2) || coluna !=c2){
-                    System.out.println("while bloco 2 na linha do bloco 1 de c1 pra esquerda" + coluna + " " + c2);
                     cont++;
                 }
                 coluna--;
@@ -197,7 +186,6 @@ public class Tabuleiro {
         while(coluna < inGameMatrix[0].length && inGameMatrix[l2][coluna].getCor() != null){
             if (inGameMatrix[l2][coluna].getCor().equals(inGameMatrix[l1][c1].getCor())){
                 if(!l1.equals(l2) || coluna != c1){
-                    System.out.println("while bloco 1 na linha do bloco 2 de c2 pra direita" + coluna);
                     cont++;
                 }
                 coluna++;
@@ -214,7 +202,6 @@ public class Tabuleiro {
         while(coluna >= 0 && inGameMatrix[l2][coluna].getCor() != null){
             if(inGameMatrix[l2][coluna].getCor().equals(inGameMatrix[l1][c1].getCor())){
                 if(!l1.equals(l2) || coluna != c1){
-                    System.out.println("while bloco 1 na linha do bloco 2 de c2 pra esquerda" + coluna);
                     cont++;
                 }
                 coluna--;
@@ -234,7 +221,6 @@ public class Tabuleiro {
         while(linha < inGameMatrix.length && inGameMatrix[linha][c1].getCor() != null){
             if(inGameMatrix[linha][c1].getCor().equals(inGameMatrix[l2][c2].getCor())){
                 if(!c1.equals(c2) || linha != l2){
-                    System.out.println("while bloco 2 na coluna do bloco 1 de l1 pra baixo" + linha);
                     cont++;
                 }
                 linha++;
@@ -250,7 +236,6 @@ public class Tabuleiro {
         while(linha >= 0 && inGameMatrix[linha][c1].getCor() != null){
             if(inGameMatrix[linha][c1].getCor().equals(inGameMatrix[l2][c2].getCor())){
                 if(!c1.equals(c2) || linha != l2){
-                    System.out.println("while bloco 2 na coluna do bloco 1 de l1 pra cima" + linha);
                     cont++;
                 }
                 linha--;
@@ -268,7 +253,6 @@ public class Tabuleiro {
         while(linha < inGameMatrix.length && inGameMatrix[linha][c2].getCor() != null){
             if(inGameMatrix[linha][c2].getCor().equals(inGameMatrix[l1][c1].getCor())){
                 if(!c1.equals(c2) || linha != l1){
-                    System.out.println("while bloco 1 na coluna do bloco 2 de l2 pra baixo" + linha);
                     cont++;
                 }
                 linha++;
@@ -284,7 +268,6 @@ public class Tabuleiro {
         while(linha >= 0 && inGameMatrix[linha][c2].getCor() != null){
             if(inGameMatrix[linha][c2].getCor().equals(inGameMatrix[l1][c1].getCor())){
                 if(!c1.equals(c2) || linha != l1){
-                    System.out.println("while bloco 1 na coluna do bloco 2 de l2 pra cima" + linha);
                     cont++;
                 }
                 linha--;
@@ -303,12 +286,9 @@ public class Tabuleiro {
         inGameMatrix[l1][c1] = inGameMatrix[l2][c2];
         inGameMatrix[l2][c2] = n;
         setAvailableSwaps();
-//        return findMatches(false);
     }
 
-    public ArrayList<Tuple> findMatches(boolean generating){
-
-//        ArrayList<Tuple> toBreak = new ArrayList<>();
+    public ArrayList<Tuple> findMatches(){
         toBreak.clear();
         for(int linha = 0; linha < 9; linha++){
             for(int coluna = 0; coluna < 9; coluna++){
@@ -398,7 +378,6 @@ public class Tabuleiro {
             }
         }
 
-//        return breakMatches(toBreak, generating);
         return toBreak;
     }
 
@@ -425,7 +404,6 @@ public class Tabuleiro {
                             setBrokenBlocoEspecial(((BlocoEspecial) inGameMatrix[tuple.linha][tuple.coluna + 1]).getTipo());
                             inGameMatrix[tuple.linha][tuple.coluna + 1].setCor(-1);
                             inGameMatrix[tuple.linha][tuple.coluna + 1].setBloco(null);
-
                             Tuple nova = new Tuple(tuple.linha, tuple.coluna + 1);
                             novos.add(nova);
                         }
@@ -492,23 +470,13 @@ public class Tabuleiro {
                         }
                         else{
                             Bloco novo = new Bloco(linha, coluna, n);
-
                             this.inGameMatrix[linha][coluna] = novo;
-//                            for(int l = 1; l <= linha; l++){
-//                                if(this.inGameMatrix[l][coluna] != null) {
-//                                    this.inGameMatrix[l][coluna] = novo;
-//                                    break;
-//                                }
-//                            }
                         }
                         refillTiles(generating);
                     }
                 }
             }
         }
-
-//        return findMatches();
-//        return 0;
     }
 
     private Tuple getTopTile(Integer linha, Integer coluna, boolean generating){

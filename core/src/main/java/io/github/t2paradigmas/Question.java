@@ -38,24 +38,10 @@ public class Question {
         return options;
     }
 
-    public Integer getLevel() {
-        return level;
-    }
-
     public boolean isAnswered() {
         return answered;
     }
     public void setAnswered(boolean answered) {
         this.answered = answered;
-    }
-
-    @Override
-    public String toString() {
-        return "Question{" +
-            "id=" + id +
-            ", text='" + text + '\'' +
-            ", options=" + options +
-            ", answer=" + answer +
-            '}';
     }
 }
