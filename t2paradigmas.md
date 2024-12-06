@@ -1,3 +1,4 @@
+```mermaid
 classDiagram
 direction BT
 class Bloco {
@@ -193,4 +194,5 @@ Tabuleiro "1" *--> "inGameMatrix *" Bloco
 Tabuleiro  ..>  BlocoEspecial : «create»
 Tabuleiro "1" *--> "toBreak *" Tuple 
 Tabuleiro  ..>  Tuple : «create»
-TabuleiroRenderer "1" *--> "tabuleiro 1" Tabuleiro 
+TabuleiroRenderer "1" *--> "tabuleiro 1" Tabuleiro
+```
