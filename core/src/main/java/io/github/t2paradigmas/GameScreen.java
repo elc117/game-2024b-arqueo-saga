@@ -194,7 +194,11 @@ public class GameScreen implements Screen {
 
     private boolean isGameOver() throws InterruptedException {
         if(areAllBroken()){
-            TimeUnit.MILLISECONDS.sleep(500);
+            float timeSeconds = 0f;
+            float period = 500f;
+            while(timeSeconds < period){
+                timeSeconds += Gdx.graphics.getDeltaTime();
+            }
             level.setPlayed(true);
             level.setScore(calcularPontosMovimentos());
             level.setRecord(game);
@@ -202,7 +206,11 @@ public class GameScreen implements Screen {
             return true;
         }
         else if(level.getTabuleiro().getAvailableSwaps() == 0 && !areAllBroken()){
-            TimeUnit.MILLISECONDS.sleep(500);
+            float timeSeconds = 0f;
+            float period = 500f;
+            while(timeSeconds < period){
+                timeSeconds += Gdx.graphics.getDeltaTime();
+            }
             background.setTexture(new Texture("img/bg/gameover.png"));
             sair.setSize(0.88f, 0.88f);
             sair.setCenter(8.366f + 0.44f, 7.466f - 0.44f);
