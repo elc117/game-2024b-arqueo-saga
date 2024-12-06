@@ -19,12 +19,12 @@ import java.util.ArrayList;
 public class SelectLevelScreen implements Screen {
     final Main game;
     private final Texture background;
-    private Array<Sprite> playButtons;
-    private ArrayList<Sprite> fossilButtons;
-    private ArrayList<Sprite> lockButtons;
+    private final Array<Sprite> playButtons;
+    private final ArrayList<Sprite> fossilButtons;
+    private final ArrayList<Sprite> lockButtons;
     Vector2 clickPos;
-    private GlyphLayout layout;
-    private Sprite btnMenu;
+    private final GlyphLayout layout;
+    private final Sprite btnMenu;
 
     public SelectLevelScreen(Main game) {
         this.game = game;

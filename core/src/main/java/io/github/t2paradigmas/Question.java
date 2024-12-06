@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class Question {
     private int id;
-    private String text;
-    private int answer;
-    private ArrayList<String> options;
+    private final String text;
+    private final int answer;
+    private final ArrayList<String> options;
     private int level;
     private boolean answered;
 

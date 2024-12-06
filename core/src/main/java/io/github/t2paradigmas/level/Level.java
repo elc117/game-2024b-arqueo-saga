@@ -4,15 +4,15 @@ import io.github.t2paradigmas.Main;
 import io.github.t2paradigmas.tabuleiro.Tabuleiro;
 
 public class Level {
-    private Integer levelNumber;
-    private Integer numSwap;
+    private final Integer levelNumber;
+    private final Integer numSwap;
     private boolean isPlayed;
-    private Integer numTerra;
-    private Integer numPedregulho;
-    private Integer numRocha;
+    private final Integer numTerra;
+    private final Integer numPedregulho;
+    private final Integer numRocha;
     private Integer score;
-    private Tabuleiro tabuleiro;
-    private int[][] matriz;
+    private final Tabuleiro tabuleiro;
+    private final int[][] matriz;
     private Integer record;
 
     public Level(Integer levelNumber, Integer numSwap, Integer numTerra, Integer numPedregulho, Integer numRocha, int[][] matriz) {

@@ -20,19 +20,18 @@ import java.util.ArrayList;
 public class QuizScreen implements Screen {
 
     private final Main game;
-    private Sprite background;
-    private Vector2 clickPos;
+    private final Sprite background;
+    private final Vector2 clickPos;
     private final ArrayList<Sprite> optionCircle;
-    private Question question;
-    private Level level;
-    private GlyphLayout text;
-    private ArrayList<GlyphLayout> options;
-    private ArrayList<Rectangle> rectOptions;
+    private final Question question;
+    private final GlyphLayout text;
+    private final ArrayList<GlyphLayout> options;
+    private final ArrayList<Rectangle> rectOptions;
     private boolean answered;
-    private GlyphLayout answerText;
-    private Sprite btnContinuar;
-    private Sound soundErro;
-    private Sound soundAcerto;
+    private final GlyphLayout answerText;
+    private final Sprite btnContinuar;
+    private final Sound soundErro;
+    private final Sound soundAcerto;
 
     public QuizScreen(Main game, Level level) {
         this.game = game;
@@ -48,7 +47,6 @@ public class QuizScreen implements Screen {
             optionCircle.add(novo);
             rectOptions.add(optionCircle.get(optionCircle.size()-1).getBoundingRectangle());
         }
-        this.level = level;
         question = game.questions.get(level.getLevelNumber()-1);
         this.text = new GlyphLayout();
         text.setText(game.font, question.getText(), Color.BLACK, 6.969f, Align.center, true);

@@ -1,6 +1,5 @@
 package io.github.t2paradigmas.tabuleiro;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import io.github.t2paradigmas.blocos.Bloco;
 import io.github.t2paradigmas.blocos.BlocoEspecial;
@@ -17,8 +16,8 @@ public class Tabuleiro {
     private Integer brokenTerra;
     private Integer brokenPedregulho;
     private Integer brokenRocha;
-    private Bloco[][] inGameMatrix;
-    private ArrayList<Tuple> toBreak;
+    private final Bloco[][] inGameMatrix;
+    private final ArrayList<Tuple> toBreak;
     private Integer availableSwaps;
 
     public Tabuleiro(int[][] matriz, Integer numSwap) {
@@ -486,7 +485,7 @@ public class Tabuleiro {
         if(linha >= 0){ // se não tiver chegado no topo do tabuleiro
             if(generating){
                 if(inGameMatrix[linha][coluna].getCor() == null){
-                    return getTopTile(linha-1, coluna, generating);
+                    return getTopTile(linha-1, coluna, true);
                 }
             }
 

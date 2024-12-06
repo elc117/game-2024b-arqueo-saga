@@ -14,11 +14,11 @@ import io.github.t2paradigmas.level.Level;
 
 public class FossilScreen implements Screen {
     private final Main game;
-    private Texture background;
-    private Level level;
-    private Vector2 clickPos;
+    private final Texture background;
+    private final Level level;
+    private final Vector2 clickPos;
     private final Sprite btnContinuar;
-    private boolean quiz;
+    private final boolean quiz;
     private Sound soundLevelCompleto;
 
     FossilScreen(Main game, Level level, boolean quiz) {

@@ -3,9 +3,6 @@ package io.github.t2paradigmas.tabuleiro;
 
 import com.badlogic.gdx.Gdx;
 import io.github.t2paradigmas.blocos.Bloco;
-import io.github.t2paradigmas.utilitarios.Tuple;
-
-import java.util.ArrayList;
 
 public class TabuleiroRenderer {
     private final Tabuleiro tabuleiro;
@@ -15,11 +12,7 @@ public class TabuleiroRenderer {
 
     }
 
-    public Tabuleiro getTabuleiro() {
-        return tabuleiro;
-    }
-
-    public static boolean moveTile(Bloco tile, ArrayList<Tuple> toBreak){
+    public static boolean moveTile(Bloco tile){
         float delta = Gdx.graphics.getDeltaTime(); // retrieve the current delta
         float speed = 2;
         if(!tile.getInitialized()){
@@ -75,11 +68,11 @@ public class TabuleiroRenderer {
     public static float calculateYCenter(int linha){
         return 7.865f - 0.9f * linha;
     }
-    public int render(ArrayList<Tuple> toBreak) {
+    public int render() {
         int cont = 0;
         for(int coluna = 0; coluna < 9; coluna++) {
             for(int linha = 0; linha < 9; linha++) {
-                if(moveTile(tabuleiro.getInGameMatrix()[linha][coluna], toBreak))
+                if(moveTile(tabuleiro.getInGameMatrix()[linha][coluna]))
                     cont++;
             }
         }

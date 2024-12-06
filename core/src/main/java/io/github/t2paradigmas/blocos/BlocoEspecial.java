@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class BlocoEspecial extends Bloco{
     private Integer hits;
-    private String tipo;
+    private final String tipo;
     public BlocoEspecial(Integer linha, Integer coluna, String type, Integer hits) {
         super(linha, coluna, type);
         this.hits = hits;

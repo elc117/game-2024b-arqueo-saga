@@ -34,9 +34,6 @@ public class Bloco {
     public void setInitialized(boolean initialized) {
         this.initialized = initialized;
     }
-    public Tuple getPreviousPos() {
-        return previousPos;
-    }
 
     public Tuple getCurrentPos() {
         return currentPos;
@@ -66,4 +63,7 @@ public class Bloco {
         this.bloco = bloco;
     }
 
+    public Tuple getPreviousPos() {
+        return previousPos;
+    }
 }

@@ -18,15 +18,13 @@ import io.github.t2paradigmas.tabuleiro.TabuleiroRenderer;
 import io.github.t2paradigmas.utilitarios.Tuple;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-
 
 public class GameScreen implements Screen {
     private final Main game;
-    private Sprite background;
-    private Level level;
-    private Vector2 clickPos;
-    private TabuleiroRenderer tabRender;
+    private final Sprite background;
+    private final Level level;
+    private final Vector2 clickPos;
+    private final TabuleiroRenderer tabRender;
     private Tuple selectedBloco;
     private final Sprite markSelected;
     private final Sprite sair;
@@ -35,7 +33,7 @@ public class GameScreen implements Screen {
     private final GlyphLayout layout;
     private boolean isOver;
     private final Sprite tentarNovamente;
-    private Sound soundQuebra;
+    private final Sound soundQuebra;
 
 
     public GameScreen(Main game, Level level) {
@@ -74,11 +72,7 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
         if(!moving) {
-            try {
-                isOver = isGameOver();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            isOver = isGameOver();
         }
         draw();
         if(!moving) {
@@ -109,7 +103,7 @@ public class GameScreen implements Screen {
         sair.draw(game.batch);
 
         if(!isOver) {
-            int cont = tabRender.render(toBreak);
+            int cont = tabRender.render();
             setMoving(cont>0);
 
             for(int linha = 0; linha < 9; linha++) {
@@ -152,16 +146,14 @@ public class GameScreen implements Screen {
                     Integer linha = (int) (-(clickPos.y - 8.315) / 0.9);
                     Integer coluna = (int) ((clickPos.x - 0.96) / 0.9);
                     if (selectedBloco != null) {
-                        if (inGameMatrix[linha][coluna].equals(inGameMatrix[selectedBloco.getLinha()][selectedBloco.getColuna()])) {
-                            selectedBloco = null;
-                        } else {
+                        if (!inGameMatrix[linha][coluna].equals(inGameMatrix[selectedBloco.getLinha()][selectedBloco.getColuna()])) {
                             if (level.getTabuleiro().isSwapPossible(selectedBloco.getLinha(), selectedBloco.getColuna(), linha, coluna)) {
                                 level.getTabuleiro().swapTiles(selectedBloco.getLinha(), selectedBloco.getColuna(), linha, coluna);
                                 toBreak = level.getTabuleiro().findMatches();
 
                             }
-                            selectedBloco = null;
                         }
+                        selectedBloco = null;
                     } else
                         selectedBloco = new Tuple(linha, coluna);
                 }
@@ -192,7 +184,7 @@ public class GameScreen implements Screen {
         toBreak = level.getTabuleiro().findMatches();
     }
 
-    private boolean isGameOver() throws InterruptedException {
+    private boolean isGameOver(){
         if(areAllBroken()){
             float timeSeconds = 0f;
             float period = 500f;
@@ -226,9 +218,6 @@ public class GameScreen implements Screen {
                 && level.getNumRocha().equals(level.getTabuleiro().getBrokenRocha()));
     }
 
-    public boolean getMoving() {
-        return moving;
-    }
 
     public void setMoving(boolean moving) {
         this.moving = moving;
