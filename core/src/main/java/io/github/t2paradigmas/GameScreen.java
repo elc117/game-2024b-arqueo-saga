@@ -3,6 +3,7 @@ package io.github.t2paradigmas;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -34,6 +35,7 @@ public class GameScreen implements Screen {
     private final GlyphLayout layout;
     private boolean isOver;
     private final Sprite tentarNovamente;
+    private Sound soundQuebra;
 
 
     public GameScreen(Main game, Level level) {
@@ -55,6 +57,11 @@ public class GameScreen implements Screen {
         tentarNovamente = new Sprite(new Texture("img/botoes/tentarnovamente.png"));
         tentarNovamente.setSize(4.097f, 1.45f);
         tentarNovamente.setCenter(2.951f +2.0485f, 4.609f-1.45f/2);
+        if(game.isSoundOn())
+            this.soundQuebra = Gdx.audio.newSound(Gdx.files.internal("audio/quebra.mp3"));
+        else
+            this.soundQuebra = null;
+
     }
 
 
@@ -180,7 +187,7 @@ public class GameScreen implements Screen {
 
     private void logic() {
 
-        int totalBroken = level.getTabuleiro().breakMatches(toBreak, false);
+        int totalBroken = level.getTabuleiro().breakMatches(toBreak, false, soundQuebra);
         level.setScore(calcularPontuacao(totalBroken));
         toBreak = level.getTabuleiro().findMatches();
     }
@@ -254,5 +261,6 @@ public class GameScreen implements Screen {
         sair.getTexture().dispose();
         markSelected.getTexture().dispose();
         tentarNovamente.getTexture().dispose();
+        soundQuebra.dispose();
     }
 }

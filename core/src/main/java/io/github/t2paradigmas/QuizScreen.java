@@ -3,6 +3,7 @@ package io.github.t2paradigmas;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -30,6 +31,8 @@ public class QuizScreen implements Screen {
     private boolean answered;
     private GlyphLayout answerText;
     private Sprite btnContinuar;
+    private Sound soundErro;
+    private Sound soundAcerto;
 
     public QuizScreen(Main game, Level level) {
         this.game = game;
@@ -63,6 +66,15 @@ public class QuizScreen implements Screen {
         btnContinuar = new Sprite(new Texture("img/botoes/continuar" + level.getLevelNumber() + ".png"));
         btnContinuar.setSize(2.683f, 0.95f);
         btnContinuar.setCenter(game.viewport.getWorldWidth()/2, 2.537f - btnContinuar.getHeight()/2);
+
+        if(game.isSoundOn()){
+            this.soundAcerto = Gdx.audio.newSound(Gdx.files.internal("audio/acerto.mp3"));
+            this.soundErro = Gdx.audio.newSound(Gdx.files.internal("audio/erro.mp3"));
+        }
+        else{
+            this.soundAcerto = null;
+            this.soundErro = null;
+        }
     }
 
     @Override
@@ -140,11 +152,15 @@ public class QuizScreen implements Screen {
             this.question.setAnswered(true);
         }
         background.setTexture(new Texture("img/bg/acerto.png"));
+        if(soundAcerto!=null)
+            soundAcerto.play();
     }
 
     private void respostaErrada(){
         background.setTexture(new Texture("img/bg/erro.png"));
         this.answerText.setText(game.font, this.question.getOptions().get(this.question.getAnswer()), Color.BLACK, 6.969f, Align.center, true);
+        if(soundErro!=null)
+            soundErro.play();
     }
     @Override
     public void resize(int width, int height) {
@@ -169,6 +185,7 @@ public class QuizScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        soundAcerto.dispose();
+        soundErro.dispose();
     }
 }

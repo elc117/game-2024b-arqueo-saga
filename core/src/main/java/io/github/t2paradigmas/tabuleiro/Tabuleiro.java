@@ -1,5 +1,7 @@
 package io.github.t2paradigmas.tabuleiro;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import io.github.t2paradigmas.blocos.Bloco;
 import io.github.t2paradigmas.blocos.BlocoEspecial;
 import io.github.t2paradigmas.utilitarios.Tuple;
@@ -109,10 +111,10 @@ public class Tabuleiro {
             }
         }
         findMatches();
-        int found = breakMatches(toBreak, true);
+        int found = breakMatches(toBreak, true, null);
         while(found > 0) {
             findMatches();
-            found = breakMatches(toBreak, true);
+            found = breakMatches(toBreak, true, null);
         }
         for(int linha = 0; linha < 9; linha++){
             for(int coluna = 0; coluna < 9; coluna++){
@@ -381,7 +383,7 @@ public class Tabuleiro {
         return toBreak;
     }
 
-    public int breakMatches(ArrayList<Tuple> toBreak, boolean generating){
+    public int breakMatches(ArrayList<Tuple> toBreak, boolean generating, Sound soundQuebra){
         ArrayList<Tuple> novos = new ArrayList<>();
         for(Tuple tuple : toBreak){
             if(!generating) {
@@ -441,7 +443,8 @@ public class Tabuleiro {
             inGameMatrix[tuple.linha][tuple.coluna].setCor(-1);
 
             inGameMatrix[tuple.linha][tuple.coluna].setBloco(null);
-
+            if(soundQuebra!=null)
+                soundQuebra.play();
         }
         toBreak.addAll(novos);
         refillTiles(generating);

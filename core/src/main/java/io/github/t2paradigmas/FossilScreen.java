@@ -3,6 +3,7 @@ package io.github.t2paradigmas;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -18,6 +19,7 @@ public class FossilScreen implements Screen {
     private Vector2 clickPos;
     private final Sprite btnContinuar;
     private boolean quiz;
+    private Sound soundLevelCompleto;
 
     FossilScreen(Main game, Level level, boolean quiz) {
         this.game = game;
@@ -28,6 +30,12 @@ public class FossilScreen implements Screen {
         btnContinuar.setSize(2.543f, 0.9f);
         btnContinuar.setCenter(3.729f + 2.543f/2, 1 - 0.9f/2);
         this.quiz = quiz;
+        if(game.isSoundOn() && quiz) {
+            this.soundLevelCompleto = Gdx.audio.newSound(Gdx.files.internal("audio/levelcompleto.mp3"));
+            soundLevelCompleto.play();
+        }
+
+
     }
 
     @Override
@@ -94,5 +102,6 @@ public class FossilScreen implements Screen {
     public void dispose() {
         background.dispose();
         btnContinuar.getTexture().dispose();
+        soundLevelCompleto.dispose();
     }
 }

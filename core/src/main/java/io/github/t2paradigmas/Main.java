@@ -3,11 +3,16 @@ package io.github.t2paradigmas;
 //import java.awt.*;
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.badlogic.gdx.utils.Json;
@@ -25,13 +30,15 @@ public class Main extends Game {
     public ArrayList<Level> levels;
     private  Integer totalScore = 0;
     public ArrayList<Question> questions;
-
+    public Sprite soundButton;
+    private boolean soundOn;
     public Integer getTotalScore(){
         return totalScore;
     }
     public void addScore(Integer score){
         totalScore += score;
     }
+    private Sound music;
 
     @Override
     public void create() {
@@ -39,8 +46,9 @@ public class Main extends Game {
         levels = new ArrayList<>();
         questions = new ArrayList<>();
         viewport = new FitViewport(10, 10);
-
-
+        soundOn = false;
+        soundButton = new Sprite(new Texture("img/botoes/soundon"+ soundOn+ ".png"));
+        music = Gdx.audio.newSound(Gdx.files.internal("audio/jungle-story.mp3"));
         Json json = new Json();
         FileHandle questionsFileHandle = Gdx.files.internal("questions.json");
         String jsonString = questionsFileHandle.readString();
@@ -62,6 +70,22 @@ public class Main extends Game {
         font.getData().setScale( 2.3f*viewport.getWorldHeight() / Gdx.graphics.getHeight());
 
         this.setScreen(new MenuScreen(this));
+    }
+
+    public boolean isSoundOn() {
+        return soundOn;
+    }
+
+    public void setSound(){
+        this.soundOn = !soundOn;
+        soundButton.getTexture().dispose();
+        soundButton.setTexture(new Texture("img/botoes/soundon" + soundOn + ".png"));
+        if(soundOn){
+            music.play();
+        }
+        else{
+            music.pause();
+        }
     }
 
     public static boolean isClicked(float clickX, float clickY, float x1, float y1, float x2, float y2) {
@@ -103,5 +127,6 @@ public class Main extends Game {
     public void dispose() {
         batch.dispose();
         font.dispose();
+        music.dispose();
     }
 }

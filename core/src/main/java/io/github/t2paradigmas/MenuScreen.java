@@ -26,11 +26,15 @@ public class MenuScreen implements Screen {
         playButton = new Sprite(new Texture("img/botoes/jogar3.png"));
         instructionsButton = new Sprite (new Texture("img/botoes/instrucoes.png"));
 
+
         playButton.setSize(2.825f, 1);
         playButton.setCenter(worldWidth / 2f, worldHeight /2.5f);
 
         instructionsButton.setSize(2.825f, 1);
         instructionsButton.setCenter(worldWidth / 2f, worldHeight /3.5f);
+
+        game.soundButton.setSize(0.779f, 0.672f);
+        game.soundButton.setCenter(9+game.soundButton.getWidth()/2, 9.848f-game.soundButton.getHeight()/2);
 
         clickPos = new Vector2();
     }
@@ -55,6 +59,7 @@ public class MenuScreen implements Screen {
         if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
             Rectangle rectPlay = playButton.getBoundingRectangle();
             Rectangle rectInstructions = instructionsButton.getBoundingRectangle();
+            Rectangle rectSound = game.soundButton.getBoundingRectangle();
 
             if(rectPlay.contains(clickPos)) {
                 game.setScreen(new SelectLevelScreen(game));
@@ -62,6 +67,9 @@ public class MenuScreen implements Screen {
             }
             else if(rectInstructions.contains(clickPos)) {
                 game.setScreen(new InstructionsScreen(game));
+            }
+            else if(rectSound.contains(clickPos)) {
+                game.setSound();
             }
         }
     }
@@ -81,6 +89,7 @@ public class MenuScreen implements Screen {
         game.batch.draw(background, 0, 0, worldWidth, worldHeight);
         playButton.draw(game.batch);
         instructionsButton.draw(game.batch);
+        game.soundButton.draw(game.batch);
 
         game.batch.end();
     }

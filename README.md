@@ -1,4 +1,7 @@
-# t2-paradigmas
+# Arqueo Saga
+Um jogo desenvolvido por Isadora Fenner Spohr, do curso de Sistemas de Informação da UFSM.
+
+
 
 A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
 
