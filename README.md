@@ -1,5 +1,6 @@
 # Arqueo Saga
-Um jogo desenvolvido por Isadora Fenner Spohr, do curso de Sistemas de Informação da UFSM.
+Um jogo desenvolvido por Isadora Fenner Spohr, do curso de Sistemas de Informação da UFSM.    
+Para jogar: https://ifspohr.itch.io/arqueo-saga
 
 ## Sobre o jogo
 Arqueo Saga é um jogo de match-3, similar ao popular Candy Crush. O objetivo do jogo é quebrar todos os blocos especiais em cada fase. Ao concluir uma fase, o jogador desbloqueia informações sobre um fóssil da região da Quarta Colônia, e pode responder a uma pergunta para ganhar mais pontos.
