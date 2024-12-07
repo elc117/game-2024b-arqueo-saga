@@ -17,6 +17,8 @@
   <inherits name="com.badlogic.gdx.backends.gdx_backends_gwt" />
   <inherits name="io.github.t2paradigmas.Main" />
 
+  <!-- <extend-configuration-property name="gdx.reflect.include" value="io.github.t2paradigmas.Question"/> -->
+
   <!-- You must change this if you rename packages later, or rename GwtLauncher. -->
   <entry-point class="io.github.t2paradigmas.gwt.GwtLauncher" />
 
