@@ -65,7 +65,7 @@ public class Main extends Game {
         font = new BitmapFont();
         //font has 15pt, but we need to scale it to our viewport by ratio of viewport height to screen height
         font.setUseIntegerPositions(false);
-        font.getData().setScale( 2.3f*viewport.getWorldHeight() / Gdx.graphics.getHeight());
+        font.getData().setScale( 1.5f* viewport.getWorldHeight() / Gdx.graphics.getHeight());
 
         this.setScreen(new MenuScreen(this));
     }

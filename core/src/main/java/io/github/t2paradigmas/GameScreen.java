@@ -225,7 +225,7 @@ public class GameScreen implements Screen {
 
     private int calcularPontuacao(int broken){
         if(broken > 0)
-            return (broken-3)*50 + 300;
+            return (broken-3)*50 + 100;
         else return 0;
     }
 
