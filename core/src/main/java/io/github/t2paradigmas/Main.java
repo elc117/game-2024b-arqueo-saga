@@ -79,7 +79,7 @@ public class Main extends Game {
         soundButton.getTexture().dispose();
         soundButton.setTexture(new Texture("img/botoes/soundon" + soundOn + ".png"));
         if(soundOn){
-            music.play();
+            music.loop();
         }
         else{
             music.pause();
